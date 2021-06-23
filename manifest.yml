@@ -1,0 +1,12 @@
+CLI: true
+DEPENDENCIES:
+- MBoxCore
+- MBoxWorkspace
+- MBoxDev
+- MBoxRuby
+NAME: MBoxDevRuby
+VERSION: '1.0'
+GROUPS:
+- Plugin
+AUTHORS:
+- MBox Team
