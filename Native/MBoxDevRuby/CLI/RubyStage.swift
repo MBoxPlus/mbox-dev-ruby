@@ -13,7 +13,7 @@ import MBoxDev
 
 public class RubyStage: BuildStage {
 
-    public static func updateManifest(_ manifest: MBPluginPackage) {
+    public static func updateManifest(_ manifest: MBPluginPackage) throws {
         manifest.hasRuby = true
     }
 
