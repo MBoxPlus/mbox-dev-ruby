@@ -13,23 +13,11 @@ import MBoxDev
 
 public class RubyStage: BuildStage {
 
-    public static func updateManifest(_ manifest: MBPluginPackage) throws {
-        manifest.hasRuby = true
-    }
-
-    public static var name: String {
-        return "Ruby"
-    }
-
     required public init(outputDir: String) {
         self.outputDir = outputDir
     }
 
     public var outputDir: String
-
-    public static var path: String? {
-        return MBoxDevRuby.pluginPackage?.resoucePath(for: "Template")
-    }
 
     open func build(repos: [(repo: MBWorkRepo, curVersion: String?, nextVersion: String)]) throws {
         for (repo, _, _) in repos {
@@ -55,4 +43,20 @@ public class RubyStage: BuildStage {
     public func upgrade(repo: MBWorkRepo, nextVersion: String) throws {
         try repo.updateRubyVersion(nextVersion)
     }
+}
+
+extension RubyStage: DevTemplate {
+
+    public static func updateManifest(_ manifest: MBPluginPackage) throws {
+        manifest.hasRuby = true
+    }
+
+    public static var name: String {
+        return "Ruby"
+    }
+
+    public static var path: String? {
+        return MBoxDevRuby.pluginPackage?.resoucePath(for: "Template")
+    }
+
 }

@@ -13,6 +13,7 @@
 		AB523DEF2666493D00B6EB90 /* RubyStage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB523DED2666493D00B6EB90 /* RubyStage.swift */; };
 		AB6D75F2230467FC003A0EA1 /* MBoxDevRuby.h in Headers */ = {isa = PBXBuildFile; fileRef = AB6D75F0230467FC003A0EA1 /* MBoxDevRuby.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AB6D75FE23046AAE003A0EA1 /* MBoxDevRuby.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6D75FD23046AAE003A0EA1 /* MBoxDevRuby.swift */; };
+		ABA41D3B26CCEAF30061E23F /* Dev.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA41D3A26CCEAF30061E23F /* Dev.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		AB6D75FD23046AAE003A0EA1 /* MBoxDevRuby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBoxDevRuby.swift; sourceTree = "<group>"; };
 		ABA08CF6238D8E6C00C5567A /* Basic.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Basic.xcconfig; sourceTree = "<group>"; };
 		ABA08CF7238D8E9700C5567A /* manifest.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; name = manifest.yml; path = ../manifest.yml; sourceTree = "<group>"; };
+		ABA41D3A26CCEAF30061E23F /* Dev.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dev.swift; sourceTree = "<group>"; };
 		C7F6C11201C422352FC83A5C /* Pods-MBoxDevRuby.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MBoxDevRuby.release.xcconfig"; path = "Target Support Files/Pods-MBoxDevRuby/Pods-MBoxDevRuby.release.xcconfig"; sourceTree = "<group>"; };
 		F12AF2704BBEA9B4622327D9 /* Pods_MBoxDevRuby.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MBoxDevRuby.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -68,6 +70,7 @@
 			children = (
 				AB523DED2666493D00B6EB90 /* RubyStage.swift */,
 				AB523DEC2666493D00B6EB90 /* Build.swift */,
+				ABA41D3A26CCEAF30061E23F /* Dev.swift */,
 			);
 			path = CLI;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 				AB6D75FE23046AAE003A0EA1 /* MBoxDevRuby.swift in Sources */,
 				AB5236D72664E69B00B6EB90 /* MBWorkRepo.swift in Sources */,
 				AB523DEF2666493D00B6EB90 /* RubyStage.swift in Sources */,
+				ABA41D3B26CCEAF30061E23F /* Dev.swift in Sources */,
 				AB523DEE2666493D00B6EB90 /* Build.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
