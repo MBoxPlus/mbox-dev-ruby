@@ -2,7 +2,7 @@
 //  MBConfig.Repo.swift
 //  MBoxDev
 //
-//  Created by 詹迟晶 on 2019/11/17.
+//  Created by Whirlwind on 2019/11/17.
 //  Copyright © 2019 com.bytedance. All rights reserved.
 //
 
@@ -68,7 +68,7 @@ extension MBWorkRepo {
         guard cmd.exec("git ls-files -z") == 0 else {
             throw RuntimeError(cmd.errorString)
         }
-        UI.log(verbose: "\n") // 追加一个换行
+        UI.log(verbose: "\n")
         for path in cmd.outputString.split(separator: "\0").map({ String($0) }) {
             let targetPath = output.appending(pathComponent: path)
             let targetDir = targetPath.deletingLastPathComponent
