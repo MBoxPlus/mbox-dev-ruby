@@ -9,5 +9,6 @@ import MBoxCore
 @objc(MBoxDevRuby)
 open class MBoxDevRuby: NSObject, MBPluginProtocol {
     public func registerCommanders() {
+        
     }
 }

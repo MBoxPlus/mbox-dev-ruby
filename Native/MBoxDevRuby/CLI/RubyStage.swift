@@ -8,7 +8,6 @@
 
 import Foundation
 import MBoxCore
-import MBoxWorkspaceCore
 import MBoxDev
 
 public class RubyStage: BuildStage {
@@ -19,36 +18,24 @@ public class RubyStage: BuildStage {
 
     public var outputDir: String
 
-    open func build(repos: [(repo: MBWorkRepo, curVersion: String?, nextVersion: String)]) throws {
-        for (repo, _, _) in repos {
-            guard repo.shouldBuildRubyPackage else {
-                continue
-            }
-            guard let name = repo.manifest?.name else { continue }
-            try UI.log(verbose: "[\(repo.name)]") {
-                let path = self.outputDir.appending(pathComponent: name).appending(pathComponent: "Ruby")
-                UI.log(verbose: "Compile to `\(path)`.")
-                try repo.buildRubyPackage(path)
-            }
-        }
+    public func buildStep(for repo: MBWorkRepo) -> [BuildStep] {
+        if !repo.shouldBuildRubyPackage { return [] }
+        return [.build, .upgrade]
     }
 
-    open func test(repos: [(repo: MBWorkRepo, curVersion: String?, nextVersion: String)]) throws {
+    open func build(repo: MBWorkRepo, curVersion: String?, nextVersion: String) throws {
+        try repo.buildRubyPackage(repo.productDir(self.outputDir))
     }
 
-    public func shouldBuild(repo: MBWorkRepo) -> Bool {
-        return repo.shouldBuildRubyPackage
-    }
-
-    public func upgrade(repo: MBWorkRepo, nextVersion: String) throws {
+    public func upgrade(repo: MBWorkRepo, curVersion: String?, nextVersion: String) throws {
         try repo.updateRubyVersion(nextVersion)
     }
 }
 
 extension RubyStage: DevTemplate {
 
-    public static func updateManifest(_ manifest: MBPluginPackage) throws {
-        manifest.hasRuby = true
+    public static func updateManifest(_ module: MBPluginModule) throws {
+        module.hasRuby = true
     }
 
     public static var name: String {
