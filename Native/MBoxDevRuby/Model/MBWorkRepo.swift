@@ -2,30 +2,43 @@
 //  MBConfig.Repo.swift
 //  MBoxDev
 //
-//  Created by 詹迟晶 on 2019/11/17.
+//  Created by Whirlwind on 2019/11/17.
 //  Copyright © 2019 com.bytedance. All rights reserved.
 //
 
 import Foundation
 import MBoxCore
-import MBoxWorkspaceCore
 import MBoxDev
 
-var MBWorkRepoManifest: UInt8 = 0
-
 extension MBWorkRepo {
-    // MARK: - Path
-    public var rubyDir: String? {
-        guard self.shouldBuildRubyPackage else { return nil }
-        let dir = self.path.appending(pathComponent: "Ruby")
-        guard dir.isExists else {
-            return nil
-        }
-        return dir
-    }
-
     // MARK: - Version
     public func updateRubyVersion(_ version: String) throws {
+        for module in self.manifest!.allModules {
+            guard module.hasRuby else { continue }
+            try module.updateRubyVersion(version, repo: self)
+        }
+    }
+
+    // MARK: - Build
+    public var shouldBuildRubyPackage: Bool {
+        return self.manifest!.allModules.contains { $0.hasRuby }
+    }
+
+    public func buildRubyPackage(_ output: String) throws {
+        for module in self.manifest!.allModules {
+            guard module.hasRuby else { continue }
+            try UI.log(verbose: "[\(module.name)]") {
+                let path = output.appending(pathComponent: module.relativeDir).appending(pathComponent: "Ruby")
+                UI.log(verbose: "Compile to `\(path)`.")
+                try module.buildRubyPackage(path)
+            }
+        }
+    }
+}
+
+extension MBPluginModule {
+    // MARK: - Version
+    public func updateRubyVersion(_ version: String, repo: MBWorkRepo) throws {
         guard let dir = self.rubyDir else {
             return
         }
@@ -47,17 +60,13 @@ extension MBWorkRepo {
         content = content.replacingOccurrences(of: "VERSION *=.*", with: "VERSION = '\(version)'", options: .regularExpression, range: nil)
         try UI.log(verbose: "Update `\(path)`") {
             try content.write(toFile: path, atomically: true, encoding: .utf8)
-            if let git = self.git {
+            if let git = repo.git {
                 try? git.change(file: path.relativePath(from: git.path), track: false)
             }
         }
     }
 
     // MARK: - Build
-    public var shouldBuildRubyPackage: Bool {
-        return self.manifest?.hasRuby == true
-    }
-
     public func buildRubyPackage(_ output: String) throws {
         if output.isExists {
             try FileManager.default.removeItem(atPath: output)
@@ -68,7 +77,7 @@ extension MBWorkRepo {
         guard cmd.exec("git ls-files -z") == 0 else {
             throw RuntimeError(cmd.errorString)
         }
-        UI.log(verbose: "\n") // 追加一个换行
+        UI.log(verbose: "\n")
         for path in cmd.outputString.split(separator: "\0").map({ String($0) }) {
             let targetPath = output.appending(pathComponent: path)
             let targetDir = targetPath.deletingLastPathComponent

@@ -2,17 +2,17 @@
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
-require "__project-name__/version"
+require "__mbox-module-name__/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "__project-name__"
-  spec.version       = __ProjectName__::VERSION
+  spec.name          = "__mbox-module-name__"
+  spec.version       = __MBoxModuleName__::VERSION
   spec.authors       = [`git config user.name`.strip]
   spec.email         = [`git config user.email`.strip]
 
   spec.summary       = %q{Plugin for MBox.}
   spec.description   = %q{Plugin for MBox.}
-  spec.homepage      = "https://github.com/mbox/__project-name__"
+  spec.homepage      = "https://github.com/mbox/__mbox-module-name__"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
